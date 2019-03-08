@@ -1,3 +1,5 @@
+import keras
+
 def build_model(layers):
     model = Sequential()
 
