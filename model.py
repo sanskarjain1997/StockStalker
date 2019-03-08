@@ -1,4 +1,4 @@
-import keras
+from keras.layers import Dense, LSTM, Dropout
 
 def build_model(layers):
     model = Sequential()
