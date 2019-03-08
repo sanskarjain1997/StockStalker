@@ -9,18 +9,18 @@ class Data:
         self.data = np.array(self.data)
         print('Shape of data loaded : ',self.data.shape) #(days, 375, 7)
 
-    def split_data(self, data, window=25, train_percent=0.9):
+    def split_data(self, window=25, train_percent=0.9):
         #Randomizing all samples
-        total_samples = data.shape[0]
+        total_samples = self.data.shape[0]
         indices = np.arange(total_samples)
         np.random.shuffle(indices)
-        data = data[indices]
+        self.data = self.data[indices]
 
         #Splitting into training and testing data
         training_samples = int(train_percent * total_samples)
         testing_samples = total_samples - training_samples
-        train = data[:training_samples]
-        test = data[training_samples:]
+        train = self.data[:training_samples]
+        test = self.data[training_samples:]
 
         #Splitting into input and output
         x_train = []
@@ -28,16 +28,17 @@ class Data:
         x_test = []
         y_test = []
 
-        for i in range(window, training_samples):
+        for i in range(window, 375):
             x_train.append(train[:, (i-window):i , 0])
             y_train.append(train[:,i, 0])
 
-        for i in range(window, testing_samples):
+        for i in range(window, 375):
             x_test.append(test[:,(i-window):i, 0])
             y_test.append(test[:, i, 0])
 
         return x_train, y_train, x_test, y_test
 
-    def preprocess(self, data):
+    def preprocess(self):
         scaler = MinMaxScaler(feature_range=(0,1))
         self.data = [scaler.fit_transform(d[:,2:]) for d in self.data]
+        self.data = np.array(self.data)

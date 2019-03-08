@@ -1,8 +1,9 @@
-from get_pure_data import hist
+from get_pure_data import Data
 from model import build_model
 
-data = load_data()
-data = preprocess_data(data)
+tcs_data = Data('TCS')
+tcs_data.preprocess()
+x_train, y_train, x_test, y_test = tcs_data.split_data(window=25)
 
 #Preprocessing
 window = 45 #
