@@ -7,7 +7,7 @@ class Data:
         self.data = [i for _,i in pd.read_csv('Processed-'+symbol+'.csv').groupby('date')]
         self.data = [np.array(d) for d in self.data]
         self.data = np.array(self.data)
-        print('Shape of data loaded : ',self.data.shape) #(days, 375, 7)
+        print('Shape of data loaded : ',self.data.shape) #(591 days, 375 instances per day, 7 features per instance)
 
     def split_data(self, window=25, train_percent=0.9):
         #Randomizing all samples
@@ -28,17 +28,23 @@ class Data:
         x_test = []
         y_test = []
 
-        for i in range(window, 375):
-            x_train.append(train[:, (i-window):i , 0])
-            y_train.append(train[:,i, 0])
+        for day in train:
+            for i in range(window, len(day)):
+                x_train.append(day[(i-window):i])
+                y_train.append(day[i])
 
-        for i in range(window, 375):
-            x_test.append(test[:,(i-window):i, 0])
-            y_test.append(test[:, i, 0])
+        for day in test:
+            for i in range(window, len(day)):
+                x_train.append(day[(i-window):i])
+                y_train.append(day[i])
+
+        x_train, y_train, x_test, y_test = np.array(x_train), np.array(y_train), np.array(x_test), np.array(y_test)
 
         return x_train, y_train, x_test, y_test
 
     def preprocess(self):
         scaler = MinMaxScaler(feature_range=(0,1))
-        self.data = [scaler.fit_transform(d[:,2:]) for d in self.data]
+        self.data = [scaler.fit_transform(day[:,2:]) for day in self.data]
         self.data = np.array(self.data)
+        print('Shape of data after preprocessing : ', self.data.shape) #(591 days, 375 instances per day, 5 features per instance)
+        return self.data
