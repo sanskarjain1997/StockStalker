@@ -1,4 +1,6 @@
-from keras.layers import Dense, LSTM, Dropout
+from keras.layers import Dense, LSTM, Dropout, Activation
+from keras.models import Sequential
+import time
 
 def build_model(layers):
     model = Sequential()
@@ -22,4 +24,4 @@ def build_model(layers):
     start = time.time()
     model.compile(loss="mse", optimizer="rmsprop", metrics=['accuracy'])
     print("Compilation Time : ", time.time() - start)
-    return models
+    return model
