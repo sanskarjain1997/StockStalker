@@ -36,18 +36,18 @@ class Data:
 
         for day in test:
             for i in range(window, len(day)):
-                x_train.append(day[(i-window):i])
-                y_train.append(day[i])
+                x_test.append(day[(i-window):i])
+                y_test.append(day[i])
 
         x_train, y_train, x_test, y_test = np.array(x_train), np.array(y_train), np.array(x_test), np.array(y_test)
 
         return x_train, y_train, x_test, y_test
 
     def preprocess(self):
-        self.data = [self.scaler.fit_transform(day[:,2:]) for day in self.data]
+        self.data = [self.scaler.fit_transform(day[:,2].reshape([-1,1])) for day in self.data]
         self.data = np.array(self.data)
-        print('Shape of data after preprocessing : ', self.data.shape) #(591 days, 375 instances per day, 5 features per instance)
+        print('Shape of data after preprocessing : ', self.data.shape) #(591 days, 375 instances per day, 1 features per instance)
         return self.data
 
-    def inverse_transform(pred):
-        return self.scaler.inverse_transform(pred)
+    def inverse_transform(self,data):
+        return self.scaler.inverse_transform(data)
