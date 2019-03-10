@@ -3,16 +3,22 @@ from model import build_model
 import matplotlib.pyplot as plt
 
 window = 25
+output_features = 1
 
 tcs_data = Data('TCS')
 tcs_data.preprocess()
 x_train, y_train, x_test, y_test = tcs_data.split_data(window=window)
 
-model = build_model([x_train.shape[2], window, 100, 1])
-model.fit(x_train, y_train, batch_size=200 , epochs=1 , verbose=1 )
+model = build_model([x_train.shape[2], window, 100, output_features])
+model.fit(x_train, y_train, batch_size=350 , epochs=1 , verbose=1 )
+#Saving Mode
+model.save('Model.hd5')
 #Predicting
-predictions = model.predict(x_test)
-predictions = inverse_transform(predictions)
+predictions = model.predict(x_test, verbose=1)
+
+#scaling back the results
+'''y_test = tcs_data.inverse_transform(y_test)[0]
+predictions = tcs_data.inverse_transform(predictions)[0]'''
 #Plotting and printing results
 
 plt.plot(y_test, color = 'blue', label = 'Real TCS Stock price')
