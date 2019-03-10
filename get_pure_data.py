@@ -4,6 +4,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 class Data:
     def __init__(self, symbol='TCS'):
+        self.scaler = MinMaxScaler(feature_range=(0,1))
         self.data = [i for _,i in pd.read_csv('Processed-'+symbol+'.csv').groupby('date')]
         self.data = [np.array(d) for d in self.data]
         self.data = np.array(self.data)
@@ -43,8 +44,10 @@ class Data:
         return x_train, y_train, x_test, y_test
 
     def preprocess(self):
-        scaler = MinMaxScaler(feature_range=(0,1))
-        self.data = [scaler.fit_transform(day[:,2:]) for day in self.data]
+        self.data = [self.scaler.fit_transform(day[:,2:]) for day in self.data]
         self.data = np.array(self.data)
         print('Shape of data after preprocessing : ', self.data.shape) #(591 days, 375 instances per day, 5 features per instance)
         return self.data
+
+    def inverse_transform(pred):
+        return self.scaler.inverse_transform(pred)
