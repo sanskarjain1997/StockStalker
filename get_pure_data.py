@@ -5,7 +5,10 @@ from sklearn.preprocessing import MinMaxScaler
 class Data:
     def __init__(self, symbol='TCS'):
         self.scaler = MinMaxScaler(feature_range=(0,1))
-        self.data = [i for _,i in pd.read_csv('Processed-'+symbol+'.csv').groupby('date')]
+        try:
+            self.data = [i for _,i in pd.read_csv('Processed-'+symbol+'.csv').groupby('date')]
+        except:
+            print('File Not Found! Try different stock symbol.')
         self.data = [np.array(d) for d in self.data]
         self.data = np.array(self.data)
         print('Shape of data loaded : ',self.data.shape) #(591 days, 375 instances per day, 7 features per instance)
