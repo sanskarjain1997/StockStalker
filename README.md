@@ -4,7 +4,7 @@
 
 This project comes under the category of algorithmic trading. We are developing a prediction model for AI trading bot that can trade in real stock market for a company’s stock within a single day, that is, do Intraday trading. Predictions of our model will we based on historical data of company’s share, that is, price of their share taken at one minute interval, for every working day of every month, for the past 2 to 3 years, and other state variables and technical indicators. Our software will be adaptive to both bull and bear market with high tolerance. At the end of the day, our project will be able to demonstrate real-time trading in stock market with virtual money. For making money, it doesn’t have to predict stock price movement correctly all the time. If it predicts 6 times out of 10 correctly, it will make money in the market.
 
-**Keywords**: Intraday trading, stock prediction, RNN, LSTM, REST API.
+**Keywords**: Intraday trading, stock prediction, RNN, LSTM.
 
 ## Problem Statement
 
