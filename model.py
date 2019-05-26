@@ -1,6 +1,10 @@
 from keras.layers import Dense, LSTM, Dropout, Activation
 from keras.models import Sequential
-import time
+
+hparams = { 'optimizer' : 'RMSprop',
+			'loss' : 'mse',
+			'activation' : 'linear'
+		  }
 
 def build_model(layers):
     model = Sequential()
@@ -14,14 +18,18 @@ def build_model(layers):
 
     model.add(LSTM(
         layers[2],
-        return_sequences=False))
+        return_sequences=True))
+    model.add(Dropout(0.3))
+    
+    model.add(LSTM(
+    layers[2],
+    return_sequences=False))
     model.add(Dropout(0.3))
 
     model.add(Dense(
         output_dim=layers[3]))
-    model.add(Activation("linear"))
+    model.add(Activation(hparams['activation']))
 
-    start = time.time()
-    model.compile(loss="mse", optimizer="rmsprop", metrics=['accuracy'])
-    print("Compilation Time : ", time.time() - start)
+    model.compile(loss=hparams['loss'], optimizer=hparams['optimizer'], metrics=['accuracy'])
+
     return model
