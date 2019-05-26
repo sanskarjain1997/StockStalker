@@ -103,7 +103,11 @@ Loss Graph :
 ## Future Prospects
 
 ● Integration of trading bot.
+
 ● Support for real-time trading.
+
 ● Increasing reach to global domain.
-● Fundamental Analysis of Stocks
+
+● Fundamental Analysis of Stocks.
+
 ● Sentiment Analysis on News Feeds that potentially affects Stock prices.
