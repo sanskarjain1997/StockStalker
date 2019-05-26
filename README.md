@@ -76,7 +76,7 @@ pip install numpy
 
 Cloning from repository
 ```
-git clone 
+git clone https://github.com/sanskarjain1997/StockStalker.git
 cd StockStalker
 ```
 
