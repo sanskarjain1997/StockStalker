@@ -56,8 +56,6 @@ This software can be used in all the financial and investment centers including,
 
 ## Usage
 
-![UseCase](Images/UseCase.png)
-
 **Note :** It is recommanded to create a virtual environment or docker container to avoid tampering with the system's dependencies.
 
 ```
